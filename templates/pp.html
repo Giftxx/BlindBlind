@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-image:linear-gradient(to right, #AACAEF, #FDE7F9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif; /* เปลี่ยนแบบอักษรเป็น Arial */
+        }
+        h1 {
+            font-size: 50px;
+            margin-bottom: 50px;
+            color: white; /* เปลี่ยนสีของข้อความเป็นสีขาว */
+        }
+        button {
+            display: block;
+            width: 300px; /* ปรับขนาดปุ่มให้เล็กลงเพื่อให้พอดีกับข้อความ */
+            height: 80px; /* ปรับขนาดปุ่มให้เล็กลงเพื่อให้พอดีกับข้อความ */
+            font-size: 25px; /* ลดขนาดตัวอักษรบนปุ่ม */
+            margin-bottom: 20px;
+            background-color:  #70A1FF; /* เปลี่ยนสีพื้นหลังของปุ่ม */
+            color: white; /* เปลี่ยนสีของข้อความบนปุ่ม */
+            border: none; /* ลบเส้นขอบ */
+            border-radius: 10px; /* ทำให้มีมุมโค้งบนเพื่อสวยงาม */
+            cursor: pointer; /* เปลี่ยนรูปแบบเมาส์เป็นรูปแบบตัวชี้ */
+        }
+        button:hover {
+            background-color: #98D9E1; /* เปลี่ยนสีพื้นหลังของปุ่มเมื่อเมาส์วางบนปุ่ม */
+        }
+    </style>
+</head>
+<body>
+    <h1>Blind Blind</h1>
+    <form action="/submit" method="post">
+        <button name="button" value="ตรวจจับวัตถุ" type="submit">ตรวจจับวัตถุ</button>
+        <button name="button" value="อ่านข้อความ" type="submit">อ่านข้อความ</button>
+        <button name="button" value="ระบุสี" type="submit">ระบุสี</button>
+        <button name="button" value="ความรู้สึก" type="submit">ความรู้สึก</button>
+    </form>
+</body>
+</html>
