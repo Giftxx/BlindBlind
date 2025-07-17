@@ -5,26 +5,33 @@ import time
 from gtts import gTTS
 from IPython.display import Audio
 import os
+import uuid
+from playsound import playsound
 
-def text_to_speech(text, output_file='output.mp3'):
+import sys
+print(">>> Using Python:", sys.executable)
+
+def text_to_speech(text):
+    filename = f"speech_{uuid.uuid4().hex}.mp3"
     tts = gTTS(text=text, lang='th', slow=False)
-    tts.save(output_file)
-    os.system("start " + output_file)
+    tts.save(filename)
+    playsound(filename)
+    os.remove(filename)  # ลบไฟล์หลังเล่นเสร็จ
 
 def emotion_processing():
     emotion_dict = {0: "โกรธ", 1: "เบื่อเบื่อ", 2: "กลัวนิดหน่อย", 3: "ยิ้ม มีความสุขดี", 4: "นิ่งนิ่ง", 5: "เศร้า", 6: "ตะลึง ตกใจ"}
 
     # load json and create model
-    json_file = open(r'D:\AIgen\blindblind\Emotion_detection_with_CNN-main\model\emotion_model.json',"r")
+    json_file = open(r'Emotion_detection_with_CNN-main\model\emotion_model.json',"r")
     loaded_model_json = json_file.read()
     json_file.close()
     emotion_model = model_from_json(loaded_model_json)
 
     # load weights into new model
-    emotion_model.load_weights(r'D:\AIgen\blindblind\Emotion_detection_with_CNN-main\model\emotion_model.h5')
+    emotion_model.load_weights(r'Emotion_detection_with_CNN-main\model\emotion_model.h5')
 
     # start the webcam feed
-    cap = cv2.VideoCapture(2)
+    cap = cv2.VideoCapture(0)
     first_iteration = True
     last_print_time = time.time()
 
@@ -34,7 +41,7 @@ def emotion_processing():
         frame = cv2.resize(frame, (390, 640))
         if not ret:
             break
-        face_detector = cv2.CascadeClassifier(r'D:\AIgen\blindblind\Emotion_detection_with_CNN-main\haarcascades\haarcascade_frontalface_default.xml')
+        face_detector = cv2.CascadeClassifier(r'Emotion_detection_with_CNN-main\haarcascades\haarcascade_frontalface_default.xml')
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # detect faces available on camera

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,5 +49,89 @@
         <h2>กดปุ่มเพื่อเริ่มทำงาน</h2>
         <a href="/NextPage"><button>Start</button></a>
     </div>
+</body>
+</html> -->
+
+<!-- ทำงานด้วยเสียงทั้งหมด  -->
+ 
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>เริ่มใช้งาน</title>
+  <style>
+    body {
+      background-image: linear-gradient(to right, #AACAEF, #FDE7F9);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 64px;
+      color: #000;
+      margin-bottom: 50px;
+    }
+
+    .start-button {
+      font-size: 50px;
+      width: 1000px;
+      height: 150px;
+      background-color: #0074D9;
+      border: none;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease;
+    }
+
+    .start-button:hover,
+    .start-button:focus {
+      background-color: #39CCCC;
+      outline: none;
+    }
+
+    .emoji {
+      font-size: 150px;
+      margin-bottom: 30px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* ซ่อนข้อความสำหรับ screen reader เท่านั้น */
+    .visually-hidden {
+      position: absolute;
+      left: -9999px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="emoji" aria-hidden="true">🐻‍❄️</div>
+    <h1>กดปุ่มเพื่อเริ่มใช้งาน</h1>
+    <a href="/NextPage">
+      <button class="start-button" aria-label="เริ่มใช้งาน" autofocus>เริ่มใช้งาน</button>
+    </a>
+    <p class="visually-hidden">กดปุ่มเพื่อเข้าสู่หน้าถัดไป</p>
+  </main>
 </body>
 </html>

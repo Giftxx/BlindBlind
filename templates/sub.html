@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>หยุดการทำงาน</title>
@@ -49,5 +49,109 @@
             <button type="submit">หยุด</button>
         </form>
     </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-image: linear-gradient(to right, #AACAEF, #FDE7F9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 50px;
+            margin-bottom: 50px;
+            color: white;
+        }
+        button {
+            display: block;
+            width: 300px;
+            height: 80px;
+            font-size: 25px;
+            margin-bottom: 20px;
+            background-color: #70A1FF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #98D9E1;
+        }
+        #voiceBtn {
+            background-color: #2ED573;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blind Blind</h1>
+    <form id="actionForm" action="/submit" method="post">
+        <button name="button" value="ตรวจจับวัตถุ" type="submit">ตรวจจับวัตถุ</button>
+        <button name="button" value="อ่านข้อความ" type="submit">อ่านข้อความ</button>
+        <button name="button" value="ระบุสี" type="submit">ระบุสี</button>
+        <button name="button" value="ความรู้สึก" type="submit">ความรู้สึก</button>
+    </form>
+
+    <button id="voiceBtn" onclick="startListening()">🎙️ ใช้เสียงสั่งงาน</button>
+
+    <script>
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = text;
+            msg.lang = "th-TH";
+            window.speechSynthesis.speak(msg);
+        }
+
+        function startListening() {
+            speak("กรุณาพูดคำสั่ง เช่น ตรวจจับวัตถุ อ่านข้อความ ระบุสี หรือ ความรู้สึก");
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'th-TH';
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const speech = event.results[0][0].transcript;
+                console.log("ได้ยินว่า:", speech);
+
+                let value = null;
+                if (speech.includes("ตรวจจับวัตถุ") || speech.includes("หนึ่ง") || speech.includes("1")) {
+                    value = "ตรวจจับวัตถุ";
+                } else if (speech.includes("อ่านข้อความ") || speech.includes("สอง") || speech.includes("2")) {
+                    value = "อ่านข้อความ";
+                } else if (speech.includes("ระบุสี") || speech.includes("สาม") || speech.includes("3")) {
+                    value = "ระบุสี";
+                } else if (speech.includes("ความรู้สึก") || speech.includes("สี่") || speech.includes("4")) {
+                    value = "ความรู้สึก";
+                }
+
+                if (value) {
+                    speak("กำลังไปที่หมวด " + value);
+                    const form = document.getElementById('actionForm');
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'button';
+                    input.value = value;
+                    form.appendChild(input);
+                    setTimeout(() => form.submit(), 1500);  // รอให้พูดเสร็จก่อนเปลี่ยนหน้า
+                } else {
+                    speak("ขออภัย ไม่เข้าใจคำสั่ง กรุณาพูดใหม่อีกครั้ง");
+                }
+            };
+
+            recognition.onerror = function(event) {
+                speak("เกิดข้อผิดพลาดในการฟังเสียง");
+                console.error(event.error);
+            };
+        }
+    </script>
 </body>
 </html>

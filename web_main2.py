@@ -3,6 +3,10 @@ import speech_recognition as sr
 from gtts import gTTS
 from playsound import playsound
 import subprocess
+import os
+import time
+import sys
+print(">>> Using Python:", sys.executable)
 
 app = Flask(__name__)
 running_processes = {}
@@ -59,25 +63,25 @@ def NextPage():
 
 @app.route('/object')
 def object_page():
-    process = subprocess.Popen(['python', 'object_main.py'])
+    process = subprocess.Popen([sys.executable, 'object_main.py'])
     running_processes["object"] = process
     return render_template('object.html')
 
 @app.route('/read')
 def read_page():
-    process = subprocess.Popen(['python', 'texttospeech.py'])
+    process = subprocess.Popen([sys.executable, 'texttospeech.py'])
     running_processes["อ่านข้อความ"] = process
     return render_template('read.html')
 
 @app.route('/color')
 def color_page():
-    process = subprocess.Popen(['python', 'colordetection.py'])
+    process = subprocess.Popen([sys.executable, 'colordetection.py'])
     running_processes["ระบุสี"] = process
     return render_template('color.html')
 
 @app.route('/feeling')
 def feeling_page():
-    process = subprocess.Popen(['python', 'TestEmotionDetector.py'])
+    process = subprocess.Popen([sys.executable, 'TestEmotionDetector.py'])
     running_processes["ความรู้สึก"] = process
     return render_template('feeling.html')
 
@@ -131,30 +135,33 @@ def message():
     </body>
     </html>
     """
+
+
+
 @app.route('/submit', methods=['POST'])
 def submit():
     button_clicked = request.form['button']
     if button_clicked == 'ตรวจจับวัตถุ':
         playsound("speech1.mp3")
-        process = subprocess.Popen(['python', 'object_main.py'])
+        process = subprocess.Popen([sys.executable, 'object_main.py'])
         running_processes[button_clicked] = process
         return render_template('object.html')
     
     elif button_clicked == 'อ่านข้อความ':
         playsound("speech2.mp3")
-        process = subprocess.Popen(['python', 'texttospeech.py'])
+        process = subprocess.Popen([sys.executable, 'texttospeech.py'])
         running_processes[button_clicked] = process
         return render_template('read.html')
     
     elif button_clicked == 'ระบุสี':
         playsound("speech3.mp3")
-        process = subprocess.Popen(['python', 'colordetection.py'])
+        process = subprocess.Popen([sys.executable, 'colordetection.py'])
         running_processes[button_clicked] = process
         return render_template('color.html')
     
     elif button_clicked == 'ความรู้สึก':
         playsound("speech4.mp3")
-        process = subprocess.Popen(['python', 'TestEmotionDetector.py'])
+        process = subprocess.Popen([sys.executable, 'TestEmotionDetector.py'])
         running_processes[button_clicked] = process
         return render_template('feeling.html')
 
@@ -166,6 +173,8 @@ def stop():
     running_processes.clear()
     playsound("speech8.mp3")
     return redirect('/message')
+
+# ----------------------------
 
 
 if __name__ == '__main__':

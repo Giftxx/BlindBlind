@@ -4,11 +4,24 @@ import time
 from gtts import gTTS
 from IPython.display import Audio
 import os
+from playsound import playsound
+import sys
+import uuid
+print(">>> Using Python:", sys.executable)
 
-def text_to_speech(text, output_file='output.mp3'):
+
+# def text_to_speech(text, output_file='output.mp3'):
+#     tts = gTTS(text=text, lang='th', slow=False)
+#     tts.save(output_file)
+#     os.system("start " + output_file)
+
+def text_to_speech(text):
+    filename = f"speech_{uuid.uuid4().hex}.mp3"
     tts = gTTS(text=text, lang='th', slow=False)
-    tts.save(output_file)
-    os.system("start " + output_file)
+    tts.save(filename)
+    playsound(filename)
+    os.remove(filename)  # ลบไฟล์หลังเล่นเสร็จ
+
 
 def object_processing():
     CLASSES = ["พื้นหลัง", "เครื่องบิน", "จักรยาน", "นก", "เรือ",
@@ -18,7 +31,7 @@ def object_processing():
 
     COLORS = np.random.uniform(0, 100, size=(len(CLASSES), 3))
     net = cv2.dnn.readNetFromCaffe("./MobileNetSSD/MobileNetSSD.prototxt", "./MobileNetSSD/MobileNetSSD.caffemodel")
-    cap = cv2.VideoCapture(2)
+    cap = cv2.VideoCapture(0)
 
     first_iteration = True
     last_print_time = time.time()

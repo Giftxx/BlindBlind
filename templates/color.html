@@ -1,52 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-    <style>
-        body {
-            background-image: linear-gradient(to right, #AACAEF, #FDE7F9);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        h2 {
-            text-align: center;
-            font-size: 60px;
-            color: black;
-        }
-        button {
-            font-size: 50px;
-            width: 1000px;
-            height: 150px;
-            background-color: #70A1FF;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #98D9E1;
-        }
-        form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        div {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 70vh;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI ระบุสี</title>
+  <style>
+    body {
+      background-image: linear-gradient(to right, #AACAEF, #FDE7F9);
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 64px;
+      color: #222;
+      margin-bottom: 30px;
+    }
+
+    .emoji {
+      font-size: 150px;
+      animation: colorDance 2s infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes colorDance {
+      0%   { transform: rotate(0deg); }
+      25%  { transform: rotate(5deg); }
+      50%  { transform: rotate(-5deg); }
+      75%  { transform: rotate(5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .stop-button {
+      font-size: 50px;
+      width: 1000px;
+      height: 150px;
+      background-color: #FF6B81;
+      border: none;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease;
+    }
+
+    .stop-button:hover,
+    .stop-button:focus {
+      background-color: #FFB6C1;
+      outline: none;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      left: -9999px;
+    }
+  </style>
 </head>
 <body>
-    <h2>ระบุสี</h2>
-    <div>
-        <form action="/stop" method="post">
-            <button type="submit">Stop</button>
-        </form>
-    </div>
+  <main class="container">
+    <div class="emoji" aria-hidden="true">🎨🌈</div>
+    <h1>AI กำลังระบุสี...</h1>
+
+    <form action="/stop" method="post">
+      <button class="stop-button" type="submit" aria-label="หยุดการระบุสี">หยุด</button>
+    </form>
+
+    <p class="visually-hidden">AI กำลังระบุสี กรุณากดปุ่มหยุดหากต้องการยกเลิก</p>
+  </main>
 </body>
 </html>
